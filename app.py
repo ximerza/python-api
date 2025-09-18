@@ -26,10 +26,22 @@ def get_day(day_id):
     return jsonify({"day": day[0]})
 
 
+@app.route("/name/<string:day_name>", methods=["GET"])
+def get_day_by_name(day_name):
+    day = [day for day in days if day["name"].lower() == day_name.lower()]
+    if not day:
+        abort(404)
+    return jsonify({"day": day[0]})
+
+
 @app.route("/", methods=["POST"])
 def post_days():
     return jsonify({"success": True}), 201
 
-
+@app.route('/saludo', methods=['POST'])
+def saludo():
+    data = get_days
+    nombre = data.get('nombre')
+    return jsonify({'mensaje': f'¡Hola, {nombre}!'})
 if __name__ == "__main__":
     app.run(debug=True)
